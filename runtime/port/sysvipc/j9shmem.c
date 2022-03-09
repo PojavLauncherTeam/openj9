@@ -1714,6 +1714,9 @@ openSharedMemory (J9PortLibrary *portLibrary, intptr_t fd, const char *baseFile,
 #elif defined(AIXPPC)
 			/*Use .key for AIXPPC*/
 			if (buf.shm_perm.key != controlinfo->common.ftok_key)
+#elif defined (__ANDROID__)
+			/*Use .key for __ANDROID__*/
+			if (buf.shm_perm.key != controlinfo->common.ftok_key)
 #elif defined(__GNUC__)
 			/*Use .__key for __GNUC__*/
 			if (buf.shm_perm.__key != controlinfo->common.ftok_key)

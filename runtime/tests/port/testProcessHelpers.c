@@ -53,7 +53,7 @@
 
 #if defined(LINUX) || defined(J9ZOS390) || defined(AIXPPC) || defined(OSX)
 
-#if (defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)) || defined(OSX)
+#if (defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)) || defined(OSX) || defined(__ANDROID__)
 /* union semun is defined by including <sys/sem.h> */
 #else
 /* according to X/OPEN we have to define it ourselves */

@@ -284,7 +284,11 @@ char *getPlatformFileEncoding(JNIEnv * env, char *codepageProp, int propSize, in
 			return "EUC-JP-LINUX";
 		}
 	}
+#ifndef __ANDROID__
 	codepage = nl_langinfo(_NL_CTYPE_CODESET_NAME);
+#else
+        codepage = "UTF-8";
+#endif
 #elif defined(ARM_EMULATED)	|| defined(CHORUS)
 	codepage = NULL;
 #elif defined(OSX)
