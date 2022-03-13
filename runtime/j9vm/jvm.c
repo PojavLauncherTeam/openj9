@@ -5772,6 +5772,28 @@ JVM_InitClassName
 }
 
 
+jclass JNICALL
+JVM_FindClassFromCaller(JNIEnv* env, const char* arg1, jboolean arg2, jobject arg3, jclass arg4)
+{
+	Assert_SC_true(!"JVM_FindClassFromCaller unimplemented");
+	return NULL;
+}
+
+jintArray JNICALL
+JVM_GetResourceLookupCache(JNIEnv *env, jobject loader, const char *resource_name) {
+	return NULL;
+}
+
+jobjectArray JNICALL
+JVM_GetResourceLookupCacheURLs(JNIEnv *env, jobject loader) {
+	return NULL;
+}
+
+jboolean JVM_KnownToNotExist(JNIEnv *env, jobject loader, const char *classname) {
+	return JNI_FALSE;
+}
+
+
 #if JAVA_SPEC_VERSION < 17
 /**
  * Return the JVM_INTERFACE_VERSION. This function should not lock, gc or throw exception.

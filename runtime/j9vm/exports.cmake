@@ -183,6 +183,7 @@ jvm_add_exports(jvm
 	_JVM_ResolveClass@8
 	_JVM_AssertionStatusDirectives@8
 	_JVM_FindPrimitiveClass@8
+	_JVM_FindClassFromCaller@20
 	_JVM_FindClassFromClassLoader@20
 	JVM_FindClassFromBootLoader
 	_JVM_GetClassInterfaces@8
@@ -289,6 +290,17 @@ jvm_add_exports(jvm
 	_JVM_CopySwapMemory@44
 	JVM_BeforeHalt
 )
+
+# Additions stubs
+	jvm_add_exports(jvm _JVM_GetResourceLookupCache@12)
+	jvm_add_exports(jvm _JVM_GetResourceLookupCacheURLs@8)
+	jvm_add_exports(jvm _JVM_KnownToNotExist@12)
+
+if(JAVA_SPEC_VERSION LESS 11)
+	jvm_add_exports(jvm _JVM_GetClassName@8)
+else()
+	jvm_add_exports(jvm _JVM_InitClassName@8)
+endif()
 
 if(JAVA_SPEC_VERSION LESS 17)
 	jvm_add_exports(jvm _JVM_LoadLibrary@4)
