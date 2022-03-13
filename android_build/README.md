@@ -29,7 +29,7 @@ DST=/path/to/jre8-android
 LIBPATH=$(dirname $(find $DST -name jvm.cfg))
 
 cp $SRC/java*.properties $LIBPATH/
-cp $SRC/build/libomrsig.so $SRC/build/libj*9*.so $LIBPATH/
+cp $SRC/libomrsig.so $SRC/libcuda4j29.so $SRC/libj*9*.so $LIBPATH/
 
 # Add j9vm
 mkdir $LIBPATH/j9vm
