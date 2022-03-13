@@ -240,7 +240,7 @@ L_outOfRange:
 	add	J9SP, J9SP, #32
 	b	L_rewriteBranch
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
@@ -254,7 +254,7 @@ const_mcc_lookupHelperTrampoline_unwrapper:
 
 	.set	J9TR_staticGlueTableSyncOffset,	40
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
@@ -346,7 +346,7 @@ FUNC_LABEL(_interpreterUnresolvedDirectVirtualGlue):
 	LOAD_FUNC_PTR(x3, const_jitResolveSpecialMethod)
 	b	L_mergedUnresolvedSpecialStaticGlue
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
@@ -682,7 +682,7 @@ FUNC_LABEL(_interpreterUnresolvedConstantDynamicGlue):
 	LOAD_FUNC_PTR(x3, const_jitResolveConstantDynamic)	// load resolve helper address
 	b	L_mergedDataResolve
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
@@ -1088,7 +1088,7 @@ L_commonLookupException:
 	mov	x30, x10					// move correct LR in to get exception throw.
 	b	FUNC_LABEL(jitThrowException)			// throw it
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
@@ -1141,7 +1141,7 @@ L_SGCclinitCase:
 L_SGCclinitCase1:
 	br	x1						// in <clinit> case, dispatch method directly without patching
 
-#if defined(OSX)
+#if defined(OSX) || defined(ANDROID)
 	.data
 #endif
 	.align	3
