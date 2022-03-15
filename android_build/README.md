@@ -1,28 +1,25 @@
 # Android build
+
 ## Configuring and building
 Note that the minimum API is 28 (Android 9) for now.
-
-This is still under construction and is unfinished!
 ```shell
 cd openj9
 
-# Clone the OMR repository (https://github.com/khanhduytran0/omr) into runtime/omr
-# git clone ...
+# Set architecture. One of aarch64, arm, x86, x86_64
+export ARCH=aarch64
 
-# Note: change JAVA_SPEC_VERSION=17 incase building for Java 17
-cmake -B build -DCMAKE_TOOLCHAIN_FILE=$NDK/build/cmake/android.toolchain.cmake -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=28 -DCMAKE_MODULE_PATH=runtime/omr/cmake/modules -DOMR_GC_LIB=omrgc -DOMR_SEMAPHORE_IMPLEMENTATION=posix -DBOOT_JDK=/usr/lib/jvm/jdk8u322-b06 -DJAVA_SPEC_VERSION=8 -DJ9VM_ARCH_AARCH64=1 -DOMR_ARCH_AARCH64=1 -C runtime/cmake/caches/linux_aarch64.cmake -DJ9JIT_EXTRA_CFLAGS="-DOMR_GC_REALTIME" -DJ9JIT_EXTRA_CXXFLAGS="-DOMR_GC_REALTIME"
+# Set NDK version. One of 8, 11, 17 (?)
+export JRE_VERSION=8
 
-# Hack: constgen cross-compile, unfinised!
-# cp ../runtime_jligen_CMakeFiles_run_constgen.dir_build.make build/runtime/jilgen/CMakeFiles/run_constgen.dir/build.make
+# Set NDK path. Below is an example
+export NDK=/usr/local/lib/android-ndk-r23b
 
-# Manually generate openj9_version_info.h
-COMPILER=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android28-clang JRE_VERSION=8 bash gen_version_info.sh
-
-# Build
-make -C build -j$(nproc)
+# Configure and build OMR and OpenJ9
+bash android_build/build.sh
 ```
 
 ## Constructing the Java 8 Runtime
+These below will be moved to a script later
 ```shell
 SRC=/path/to/openj9/build/runtime
 DST=/path/to/jre8-android
