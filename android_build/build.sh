@@ -5,22 +5,17 @@ cd $(dirname $0)/..
 
 SDK=28
 
-ANDROID_ABI=$ARCH
 if [ -z "$ARCH" ]; then
   echo "ARCH not set"
   exit 1
 elif [ "$ARCH" == "aarch64" ]; then
   ANDROID_ABI=arm64-v8a
   export COMPILER=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android$SDK-clang
-elif [ "$ARCH" == "arm" ]; then
-  ANDROID_ABI=armeabi-v7a
-  export COMPILER=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi$SDK-clang
-elif [ "$ARCH" == "x86_64" ]; then
+elif [ "$ARCH" == "x86-64" ]; then
+  ANDROID_ABI=x86_64
   export COMPILER=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android$SDK-clang
-elif [ "$ARCH" == "x86" ]; then
-  export COMPILER=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android$SDK-clang
 else
-  echo "Unknown ARCH $ARCH"
+  echo "Unknown/Unsupported ARCH $ARCH"
   exit 1
 fi
 
@@ -46,20 +41,16 @@ sudo cmake --install native_build
 cd ../..
 
 # Create stub libs
-sudo mkdir -p $NDK/toolchains/llvm/prebuilt/linux-x86_64/{aarch64-linux-android,arm-linux-androideabi,x86_64-linux-android,i686-linux-android}/lib
+sudo mkdir -p $NDK/toolchains/llvm/prebuilt/linux-x86_64/{aarch64-linux-android,x86_64-linux-android}/lib
 sudo chown -R $(id -u):$(id -g) $NDK/toolchains/llvm/prebuilt/linux-x86_64/*/lib
 ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/aarch64-linux-android/lib/libpthread.a
 ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/aarch64-linux-android/lib/librt.a
-ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/lib/libpthread.a
-ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/lib/librt.a
 ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/x86_64-linux-android/lib/libpthread.a
 ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/x86_64-linux-android/lib/librt.a
-ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/i686-linux-android/lib/libpthread.a
-ar cr $NDK/toolchains/llvm/prebuilt/linux-x86_64/i686-linux-android/lib/librt.a
 
 # Configure
 cmake -B build \
-  -C runtime/cmake/caches/linux_aarch64.cmake \
+  -C runtime/cmake/caches/linux_$ARCH.cmake \
   -DCMAKE_TOOLCHAIN_FILE=$NDK/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ANDROID_ABI \
   -DANDROID_PLATFORM=$SDK \

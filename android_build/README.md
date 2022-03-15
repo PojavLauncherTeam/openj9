@@ -5,7 +5,7 @@ Note that the minimum API is 28 (Android 9) for now.
 ```shell
 cd openj9
 
-# Set architecture. One of aarch64, arm, x86, x86_64
+# Set architecture. One of aarch64, x86-64
 export ARCH=aarch64
 
 # Set NDK version. One of 8, 11, 17 (?)
