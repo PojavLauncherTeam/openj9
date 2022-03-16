@@ -38,7 +38,7 @@
 #include <errno.h>
 #include "j9port.h"
 
-#if !defined(OSX) /* OSX provides this union in it's sys/sem.h */
+#if !defined(OSX) && !defined(__ANDROID__) /* OSX and Android provide this union in it's sys/sem.h */
 /* arg for semctl semaphore system calls. */
 union semun {
 	int val;

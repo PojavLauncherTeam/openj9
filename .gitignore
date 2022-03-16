@@ -22,7 +22,7 @@
 *.zip
 *.dll
 *.class
-omr
+# omr
 
 # 8096* and com.ibm.jvmti.tests are currently in different repos and copied into the build $workspace
 com.ibm.jvmti.tests

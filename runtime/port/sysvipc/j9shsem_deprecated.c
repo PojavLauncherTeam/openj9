@@ -1084,6 +1084,9 @@ openSemaphore(struct J9PortLibrary *portLibrary, intptr_t fd, char *baseFile, j9
 #elif defined(AIXPPC)
 			/*Use .key for AIXPPC*/
 			if (buf.sem_perm.key != controlinfo->ftok_key)
+#elif defined(__ANDROID__)
+			/*Use .key for __ANDROID__*/
+			if (buf.sem_perm.key != controlinfo->ftok_key)
 #elif defined(J9ZTPF)
 			/*Use .key for z/TPF */
 			if (buf.key != controlinfo->ftok_key)

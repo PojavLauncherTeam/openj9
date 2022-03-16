@@ -27,7 +27,7 @@
 #if defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)
 /* union semun is defined by including <sys/sem.h> */
 #else
-#if !defined(OSX)
+#if !defined(OSX) && !defined(__ANDROID__)
 /* according to X/OPEN we have to define it ourselves */
 union semun {
 	int val;                    /* value for SETVAL */
