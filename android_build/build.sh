@@ -36,7 +36,7 @@ git submodule update
 # Build and install OMR for the host
 cd runtime/omr
 cmake -B native_build
-cmake --build native_build
+cmake --build native_build -j$(nproc)
 sudo cmake --install native_build
 cd ../..
 
@@ -56,6 +56,7 @@ cmake -B build \
   -DANDROID_PLATFORM=$SDK \
   -DCMAKE_MODULE_PATH=runtime/omr/cmake/modules \
   -DOMR_GC_LIB=omrgc \
+  -DOMR_PORT_NUMA_SUPPORT=NO \
   -DOMR_SEMAPHORE_IMPLEMENTATION=posix \
   -DBOOT_JDK=/usr/lib/jvm/java-$JRE_VERSION-openjdk-amd64 \
   -DJAVA_SPEC_VERSION=$JRE_VERSION \
@@ -65,4 +66,4 @@ cmake -B build \
 bash android_build/gen_version_info.sh
 
 # Build
-make -C build -j$(nproc)
+cmake --build build -j$(nproc)
